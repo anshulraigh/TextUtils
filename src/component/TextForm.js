@@ -26,6 +26,7 @@ export default function TextForm(props) {
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
         props.showAlert("Copied to Clipboard!", "success");
     }
 
@@ -60,21 +61,21 @@ export default function TextForm(props) {
     return (
         <>
             <div className="container" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
-                <h1>{props.heading}</h1>
+                <h1 className='md-4'>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" value={text} placeholder='Paste your text here.' style={{ backgroundColor: props.mode === 'dark' ? 'grey' : '#F8E1F4', color: props.mode === 'dark' ? 'white' : 'black' }} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                    <textarea className="form-control" value={text} placeholder='Paste your text here.' style={{ backgroundColor: props.mode === 'dark' ? '#13466e' : '#F8E1F4', color: props.mode === 'dark' ? 'white' : 'black'}} onChange={handleOnChange} id="myBox" rows="8"></textarea>
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="d-flex flex-wrap justify-content-center" >
-                                <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>UPPER CASE</button>
-                                <button className="btn btn-warning mx-1 my-1" onClick={handleDownClick}>lower case</button>
-                                <button className="btn btn-success mx-1 my-1" onClick={handleCapitilizedClick}>Capitilize Case</button>
-                                <button className="btn btn-info mx-1 my-1" onClick={handleCopyClick}>Copy Text</button>
-                                <button className="btn btn-dark mx-1 my-1" onClick={hadleExtraSpaces}>Remove Extra Spaces</button>
-                                <button className="btn btn-danger mx-1 my-1" onClick={handleClearClick}>Clear All</button>
-                                <button className="btn btn-secondary mx-1 my-1" onClick={handleDownloadClick}>Download Text</button>
+                                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>UPPER CASE</button>
+                                <button disabled={text.length===0} className="btn btn-warning mx-1 my-1" onClick={handleDownClick}>lower case</button>
+                                <button disabled={text.length===0} className="btn btn-success mx-1 my-1" onClick={handleCapitilizedClick}>Capitilize Case</button>
+                                <button disabled={text.length===0} className="btn btn-info mx-1 my-1" onClick={handleCopyClick}>Copy Text</button>
+                                <button disabled={text.length===0} className="btn btn-dark mx-1 my-1" onClick={hadleExtraSpaces}>Remove Extra Spaces</button>
+                                <button disabled={text.length===0} className="btn btn-danger mx-1 my-1" onClick={handleClearClick}>Clear All</button>
+                                <button disabled={text.length===0} className="btn btn-secondary mx-1 my-1" onClick={handleDownloadClick}>Download Text</button>
                             </div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@ export default function TextForm(props) {
                 <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.replace(/\s/g, '').length} characters.</p>
                 <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read </p>
                 <h2>Preview</h2>
-                <p>{text.length > 0 ? text : 'Enter something in the textbox above to preview here.'}</p>
+                <p>{text.length > 0 ? text : 'Nothing to preview.'}</p>
             </div>
         </>
     )
