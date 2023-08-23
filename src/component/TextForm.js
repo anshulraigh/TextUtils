@@ -83,8 +83,8 @@ export default function TextForm(props) {
             <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
                 <h1>Your text summary</h1>
                 <p>To get right values, remove the extra spaces using button <b>"Remove Extra Spaces"</b></p>
-                <p>{text.length > 0 ?text.split(" ").length:0} words and {text.replace(/\s/g, '').length} characters.</p>
-                <p>{ text.length > 0 ?0.008 * text.split(" ").length:0} Minutes read </p>
+                <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.replace(/\s/g, '').length} characters.</p>
+                <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read </p>
                 <h2>Preview</h2>
                 <p>{text.length > 0 ? text : 'Enter something in the textbox above to preview here.'}</p>
             </div>
